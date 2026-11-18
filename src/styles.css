@@ -437,6 +437,10 @@ i { font-weight: 400; color: var(--muted-foreground); }
   margin: 12px 0 10px;
   font-size: 56px;
 }
+.hero-names h1.hero-names-compact {
+  font-size: 46px;
+  line-height: 1.15;
+}
 .hero-names h1 span {
   display: block;
   text-transform: uppercase;
@@ -660,13 +664,23 @@ i { font-weight: 400; color: var(--muted-foreground); }
   color: var(--foreground);
   margin-top: 2px;
 }
+.telugu-slokam {
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--muted-foreground);
+  background: color-mix(in oklch, var(--white-paper) 75%, transparent);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-top: 12px;
+  text-align: center;
+}
 
 .invitation-copy {
   position: relative;
   text-align: center;
   background: color-mix(in oklch, var(--white-paper) 78%, transparent);
   border-radius: 12px;
-  padding: 32px 30px;
+  padding: 28px 28px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -674,33 +688,120 @@ i { font-weight: 400; color: var(--muted-foreground); }
 }
 .invitation-copy h2 {
   margin-top: 6px;
-  font-size: 36px;
+  font-size: 30px;
 }
 .invitation-copy .ornamental-divider {
   margin: 10px auto 12px;
   width: 155px;
   height: 38px;
 }
+.couple-formal-names {
+  margin: 4px auto 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.person-block {
+  background: color-mix(in oklch, var(--secondary) 65%, transparent);
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+.person-role {
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+.groom-qual {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.parent-detail {
+  font-size: 12.5px !important;
+  line-height: 1.6 !important;
+  color: var(--muted-foreground);
+  margin: 4px auto 0 !important;
+}
+.with-conjunction {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 22px !important;
+  color: var(--warm-beige) !important;
+  margin: 0 auto !important;
+  line-height: 1 !important;
+}
+
 .telugu-mantra {
-  font-size: 14px;
+  font-size: 13.5px;
   line-height: 1.75;
   color: var(--foreground);
   background: var(--secondary);
   padding: 10px 18px;
   border-radius: 6px;
   margin: 4px auto 12px;
-  max-width: 440px;
+  max-width: 500px;
+}
+
+.hosts-block {
+  margin: 6px auto 8px;
+  padding: 12px 16px;
+  background: var(--secondary);
+  border-radius: 8px;
+  width: 100%;
+}
+.hosts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 8px 0 10px;
+}
+.host-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.host-pair small {
+  font-size: 11px;
+  color: var(--primary);
+  font-weight: 700;
+}
+.host-pair strong {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.compliments-line {
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+  color: var(--muted-foreground);
+  margin: 8px auto 0 !important;
+  border-top: 1px dashed var(--border);
+  padding-top: 8px;
+}
+
+.ritual-section {
+  margin-top: 10px;
+}
+.saptapadi-heading {
+  margin-bottom: 8px;
 }
 .invitation-copy p:not(.eyebrow) {
-  line-height: 1.75;
+  line-height: 1.7;
   color: var(--muted-foreground);
-  font-size: 14px;
-  max-width: 470px;
-  margin: 8px auto;
+  font-size: 13.5px;
+  max-width: 500px;
+  margin: 6px auto;
 }
 .invitation-copy h3 {
-  font-size: 40px;
-  margin: 10px 0;
+  font-size: 28px;
+  margin: 2px 0;
   color: var(--foreground);
 }
 
@@ -708,10 +809,8 @@ i { font-weight: 400; color: var(--muted-foreground); }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   flex-wrap: wrap;
-  margin-top: 14px;
-  padding-top: 14px;
 }
 .ritual-pill {
   display: inline-flex;
@@ -921,8 +1020,42 @@ i { font-weight: 400; color: var(--muted-foreground); }
 .venue-address {
   color: var(--muted-foreground);
   font-size: 13.5px;
-  margin: 6px auto 22px;
+  margin: 6px auto 16px;
   max-width: 440px;
+}
+.venue-contacts {
+  background: var(--secondary);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0 auto 20px;
+  max-width: 440px;
+}
+.contact-residence {
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-bottom: 8px;
+}
+.phone-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.phone-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--white-paper);
+  padding: 5px 14px;
+  border-radius: 999px;
+  transition: transform .2s ease;
+}
+.phone-pill:hover {
+  transform: translateY(-1px);
 }
 .venue-actions {
   display: flex;
@@ -1029,6 +1162,8 @@ i { font-weight: 400; color: var(--muted-foreground); }
   .hero-floral { width: 115px; opacity: .45; }
   .arch-frame { max-width: 335px; }
   .hero-names h1 { font-size: 46px; margin: 8px 0 6px; }
+  .hero-names h1.hero-names-compact { font-size: 38px; }
+  .hosts-grid { grid-template-columns: 1fr; gap: 10px; }
   .hero-names .eyebrow { font-size: 7.5px; letter-spacing: 1.4px; }
   .hero-names h1 .hero-ampersand { font-size: 28px; }
   .hero-names .telugu { font-size: 11px; }

@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, CalendarDays, CalendarPlus, Clock3, Globe, MapPin, Menu, Sparkles, X } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, CalendarDays, CalendarPlus, Clock3, Globe, MapPin, Menu, Phone, Sparkles, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { artwork } from '@/assets/wedding/artwork';
 import { getCountdown, weddingDetails as details } from '@/config/weddingDetails';
@@ -10,166 +10,232 @@ type Lang = 'en' | 'te';
 const translations = {
   en: {
     groom: details.groom,
+    groomFull: details.groomFull,
+    groomQualification: details.groomQualification,
+    groomParents: details.groomParents,
     bride: details.bride,
+    brideFull: details.brideFull,
+    brideParents: details.brideParents,
     monogram: ['V', 'B'] as const,
     nav: {
       home: 'Home',
       invitation: 'Invitation',
       schedule: 'Schedule',
-      location: 'Location',
+      location: 'Venue',
       dateBadge: '02 — 03 DEC 2026',
     },
     opening: {
-      almightyBlessing: 'With the blessings of the Almighty',
-      cordiallyInvite: 'We cordially invite you',
-      dateText: '02 & 03 DECEMBER 2026',
+      familyTitle: 'Mattaparthi Family Wedding Invitation',
+      almightyBlessing: 'With the blessings of Late Sri Mattaparthi Kumaraswamy...',
+      cordiallyInvite: 'We cordially invite you to the wedding of',
+      dateText: '02 & 03 DECEMBER 2026 · S.S. VENUE, RAJAVOLU',
       openButton: 'Open invitation',
-      footnote: 'A celebration of love, family & togetherness',
+      footnote: 'Mattaparthi Brothers, Reddy Brothers & Relatives',
     },
     hero: {
-      eyebrow: 'Celebrating the union of',
-      message: 'Together with our families, we cordially invite you to celebrate our wedding.',
-      receptionBadge: '01 · Reception',
+      eyebrow: 'Mattaparthi Family Wedding Invitation',
+      message:
+        'In the pearl canopy and joyous celebration, we invite you to bless Bhavyasri & Venkat as they unite in sacred matrimony.',
+      receptionBadge: '01 · Dinner (Vindu)',
       receptionShortDate: details.reception.shortDate,
-      receptionTime: details.reception.time,
-      muhurthamBadge: '02 · Muhurtham',
-      muhurthamShortDate: details.wedding.shortDate,
-      muhurthamTime: details.wedding.time,
+      receptionTime: '7:00 PM onwards at Venue',
+      muhurthamBadge: '02 · Sumuhurtham',
+      muhurthamShortDate: '03 Dec 2026 (Thu)',
+      muhurthamTime: '4:42 AM IST (Tula Lagnam)',
       countdownComplete: 'Today marks the beginning of forever',
-      countdownHeading: 'Counting down to the auspicious Muhurtham',
+      countdownHeading: 'Counting down to the auspicious Sumuhurtham',
       units: {
         days: 'days',
         hours: 'hours',
         minutes: 'minutes',
         seconds: 'seconds',
       },
-      countdownSubtext: `${details.wedding.date} · ${details.wedding.time}`,
+      countdownSubtext: 'Wednesday night 2 Dec (Early morning Thursday 3 Dec 2026) · 4:42 AM · Uttara Nakshatra Yukta Tula Lagnam',
       viewSchedule: 'View Schedule',
-      venueMap: 'Venue Map',
+      venueMap: 'S.S. Venue Map',
     },
     invitation: {
-      coupleCaption: 'Two souls · One sacred bond',
-      eyebrow: 'An invitation from our hearts',
-      heading: 'Your presence is our greatest blessing',
-      intro:
-        'With the divine blessings of the Almighty and the warm wishes of our parents and elders, we joyfully invite you to join us as',
-      outro:
-        'begin their new life together in sacred matrimony. Your gracious presence and blessings will make this celebration truly memorable.',
-      rituals: ['Jeelakarra Bellam', 'Mangalya Dharanam', 'Talambralu'],
+      coupleCaption: 'Saptapadi · Seven Sacred Steps Together',
+      eyebrow: 'Subhalekha · Wedding Invitation',
+      heading: 'Sri Mattaparthi Kalikumar & Smt. Shakunthala',
+      subHeading: 'cordially invite you to the marriage of my brother Late Sri Mattaparthi Kumaraswamy & Smt. Sujatha’s only daughter',
+      BrideLabel: 'Bride',
+      GroomLabel: 'Groom',
+      withLabel: 'with',
+      abhilashaTitle: 'Abhilasha (Our Wish)',
+      abhilashaText:
+        '“In the pearl canopy and amidst joyful celebrations, we request your gracious presence and blessings for Bhavyasri & Venkat as they unite with the sacred three knots.”',
+      hostsHeading: 'Invited By',
+      hostsList: [
+        {
+          role: 'Yours Truly (Bhavadeeyulu)',
+          names: 'Late Sri Mattaparthi Kumaraswamy & Smt. Sujatha',
+        },
+        {
+          role: 'Awaiting Your Presence (Agamanabhilashulu)',
+          names: 'Annayya: Mattaparthi Saikiran',
+        },
+      ],
+      compliments:
+        'With best compliments from: Mattaparthi Brothers, Reddy Brothers, Elders, Relatives & Friends.',
+      saptapadiTitle: 'Saptapadi · The Seven Sacred Steps',
+      rituals: [
+        '1st Step: Nourishment',
+        '2nd Step: Happiness & Strength',
+        '3rd Step: Sacred Vows',
+        '4th Step: Progeny & Family',
+        '5th Step: Lifelong Friendship',
+        '6th Step: Abundant Prosperity',
+        '7th Step: Eternal Wealth & Harmony',
+      ],
     },
     events: {
       eyebrow: 'Two Auspicious Occasions · Schedule of Events',
       heading: 'Wedding Celebrations',
       reception: {
-        step: 'Event 01 · Evening Celebration',
-        title: 'Reception',
-        date: details.reception.date,
-        time: details.reception.time,
+        step: 'Event 01 · Wedding Feast (Vindu)',
+        title: 'Vindu (Reception & Dinner)',
+        date: 'Wednesday, 2 December 2026',
+        time: '7:00 PM onwards at Kalyana Vedika',
         description:
-          'Join us for a joyful evening of music, festive dinner, and warm wishes with family and friends.',
-        addCalendar: 'Add Reception to Calendar',
+          'Join us at S.S. Venue, Kesavaram Road, Rajavolu for the celebratory dinner and warm wishes with family and friends.',
+        addCalendar: 'Add Vindu to Calendar',
       },
       muhurtham: {
-        step: 'Event 02 · Sacred Ceremony',
-        title: 'Wedding Muhurtham',
-        date: details.wedding.date,
-        time: details.wedding.time,
+        step: 'Event 02 · Sacred Sumuhurtham',
+        title: 'Wedding Sumuhurtham',
+        date: 'Wednesday night 2 Dec / Early Thu, 3 Dec 2026',
+        time: '4:42 AM IST (Uttara Nakshatra · Tula Lagnam)',
         description:
-          'Witness the sacred Vedic rituals, Mangalya Dharanam, and Talambralu at the auspicious Muhurtham hour.',
-        addCalendar: 'Add Muhurtham to Calendar',
+          'Swasthi Sri Chandramana Sri Parabhava Nama Samvatsara Karthika Masa Bahula Navami / Dasami — witness the sacred Mangalya Dharanam.',
+        addCalendar: 'Add Sumuhurtham to Calendar',
       },
     },
     venue: {
-      eyebrow: 'Venue & Navigation',
-      heading: 'We Would Love to See You',
-      defaultName: 'Our Celebration Location',
-      defaultAddress:
-        'Both the Reception and Wedding Muhurtham will take place at our celebration venue. Tap below for live Google Maps navigation.',
+      eyebrow: 'Kalyana Vedika · Venue & Navigation',
+      heading: 'S.S. Venue, Rajavolu',
+      defaultName: 'S.S. Venue (Kalyana Vedika)',
+      defaultAddress: 'Kesavaram Road, Rajavolu, Rajamahendravaram Rural, East Godavari Dist.',
+      contactLabel: 'Host Residence & Contact: Rajavolu, Rajamahendravaram Rural',
       directionsButton: 'Get Google Maps Directions',
-      signoffEyebrow: 'Awaiting your auspicious presence',
-      footerDate: '02 & 03 DECEMBER 2026 · VENKAT & BHAVYA · WITH LOVE & BLESSINGS',
+      signoffEyebrow: 'Mattaparthi Vari Pelli Pilupu · Awaiting Your Presence',
+      footerDate: '02 & 03 DECEMBER 2026 · VENKAT & BHAVYASRI · S.S. VENUE, RAJAVOLU',
     },
   },
   te: {
     groom: 'వెంకట్',
-    bride: 'భవ్య',
+    groomFull: 'చి|| కడలి వెంకటేశ్వరరావు (వెంకట్)',
+    groomQualification: 'B.P.Ed., M.Sc. (Yoga)',
+    groomParents:
+      '(డా|| బి.ఆర్ అంబేద్కర్ కోనసీమ జిల్లా, మామిడికుదురు మండలం, పాశర్లపూడి (కొట్టుమెరక) వాస్తవ్యులు శ్రీ కడలి అప్పారావు (లేటు), శ్రీమతి నాగమణి దంపతుల కనిష్ఠ కుమారుడు)',
+    bride: 'భవ్యశ్రీ',
+    brideFull: 'చి||ల||సౌ|| మట్టపర్తి భవ్యశ్రీ',
+    brideParents: '(నా సోదరుడు మట్టపర్తి కుమారస్వామి (లేటు), శ్రీమతి సుజాత దంపతుల ఏకైక కుమార్తె)',
     monogram: ['వె', 'భ'] as const,
     nav: {
       home: 'ముఖపుట',
-      invitation: 'ఆహ్వానం',
+      invitation: 'శుభలేఖ',
       schedule: 'వేడుకలు',
-      location: 'వేదిక',
+      location: 'కళ్యాణ వేదిక',
       dateBadge: '02 — 03 డిసెంబర్ 2026',
     },
     opening: {
-      almightyBlessing: 'భగవంతుని ఆశీస్సులతో మరియు పెద్దల దీవెనలతో',
-      cordiallyInvite: 'మా వివాహ వేడుకకు సాదర ఆహ్వానం',
-      dateText: '02 & 03 డిసెంబర్ 2026',
+      familyTitle: 'మట్టపర్తి వారి వివాహ మహోత్సవ ఆహ్వాన పత్రిక',
+      almightyBlessing: 'కీ||శే|| మట్టపర్తి కుమార స్వామి ఆశీస్సులతో...',
+      cordiallyInvite: 'మట్టపర్తి వారి పెండ్లి పిలుపు',
+      dateText: 'ది. 02 & 03 డిసెంబర్ 2026 · ఎస్.ఎస్. వెన్యూ, రాజవోలు',
       openButton: 'ఆహ్వాన పత్రిక తెరవండి',
-      footnote: 'ప్రేమ, కుటుంబం మరియు ఆత్మీయతల కలయిక',
+      footnote: 'మట్టపర్తి బ్రదర్స్, రెడ్డి బ్రదర్స్ మరియు బంధుమిత్రుల అభినందనలతో',
     },
     hero: {
-      eyebrow: 'శుభ వివాహ ఆహ్వాన పత్రిక',
-      message: 'మా కుటుంబ సభ్యులతో కలిసి మా వివాహ మహోత్సవానికి మిమ్మల్ని సాదరంగా ఆహ్వానిస్తున్నాము.',
-      receptionBadge: '01 · రిసెప్షన్',
-      receptionShortDate: '02 డిసెంబర్ 2026',
-      receptionTime: 'రాత్రి 7:00 గంటల నుండి',
-      muhurthamBadge: '02 · శుభ ముహూర్తం',
-      muhurthamShortDate: '03 డిసెంబర్ 2026',
-      muhurthamTime: 'తెల్లవారుజామున 4:42 ని.లకు',
+      eyebrow: 'మట్టపర్తి వారి వివాహ మహోత్సవ ఆహ్వాన పత్రిక',
+      message:
+        'ముత్యాల పందిరిలో మురిపాల సందడిలో మూడుముళ్ళ బంధంతో ఏకమవుతున్న “భవ్యశ్రీ - వెంకట్” లను ఆశీర్వదించ కోరుచున్నాము.',
+      receptionBadge: '01 · విందు',
+      receptionShortDate: 'ది. 2-12-2026 బుధవారం',
+      receptionTime: 'రాత్రి 7:00 గం||ల నుండి కళ్యాణవేదిక వద్ద',
+      muhurthamBadge: '02 · సుముహూర్తం',
+      muhurthamShortDate: 'ది. 2-12-2026 రాత్రి (తెల్లవారితే గురువారం)',
+      muhurthamTime: 'రాత్రి గం|| 4:42 ని||లకు (తులా లగ్నం)',
       countdownComplete: 'నేటితో మా కొత్త జీవిత ప్రయాణం ప్రారంభం',
-      countdownHeading: 'శుభ ముహూర్తానికి మిగిలి ఉన్న సమయం',
+      countdownHeading: 'సుముహూర్తానికి మిగిలి ఉన్న సమయం',
       units: {
         days: 'రోజులు',
         hours: 'గంటలు',
         minutes: 'నిమిషాలు',
         seconds: 'సెకన్లు',
       },
-      countdownSubtext: 'గురువారం, 3 డిసెంబర్ 2026 · తెల్లవారుజామున 4:42 IST',
+      countdownSubtext:
+        'స్వస్తిశ్రీ చాంద్రమాన శ్రీ పరాభవ నామ సంవత్సర కార్తీకమాస బహుళ నవమి తత్కాల దశమి · ది. 2-12-2026 బుధవారం రాత్రి గం|| 4:42 ని||లకు (తెల్లవారితే గురువారం) ఉత్తరా నక్షత్రయుక్త తులాలగ్నమునందు',
       viewSchedule: 'వేడుకల వివరాలు',
-      venueMap: 'వేదిక మ్యాప్',
+      venueMap: 'కళ్యాణ వేదిక మ్యాప్',
     },
     invitation: {
-      coupleCaption: 'రెండు మనసులు · ఒకే పవిత్ర బంధం',
-      eyebrow: 'మా హృదయపూర్వక ఆహ్వానం',
-      heading: 'మీ ఆగమనమే మాకు గొప్ప ఆశీర్వాదం',
-      intro:
-        'భగవంతుని కృపతో, మా తల్లిదండ్రులు మరియు పెద్దల ఆశీస్సులతో నూతన జీవితంలోకి అడుగుపెడుతున్న',
-      outro:
-        'వివాహ మహోత్సవానికి మీరు సకుటుంబ సపరివార సమేతంగా విచ్చేసి, నూతన వధూవరులను ఆశీర్వదించాలని కోరుకుంటున్నాము.',
-      rituals: ['జీలకర్ర బెల్లం', 'మాంగళ్య ధారణ', 'తలంబ్రాలు'],
+      coupleCaption: 'సప్తపది · ఏడు అడుగుల పవిత్ర బంధం',
+      eyebrow: 'కీ||శే|| మట్టపర్తి కుమార స్వామి ఆశీస్సులతో...',
+      heading: 'మట్టపర్తి కాళీకుమార్, శ్రీమతి శకుంతల దంపతులు వ్రాయు శుభలేఖార్థములు',
+      subHeading: 'నా సోదరుడు మట్టపర్తి కుమారస్వామి (లేటు), శ్రీమతి సుజాత దంపతుల ఏకైక కుమార్తెకు ఇచ్చి వివాహము జరిపించుటకు పెద్దలు నిశ్చయించినారు.',
+      BrideLabel: 'వధువు',
+      GroomLabel: 'వరుడు',
+      withLabel: 'వివాహము',
+      abhilashaTitle: 'అభిలాష :',
+      abhilashaText:
+        '“ముత్యాల పందిరిలో మురిపాల సందడిలో మూడుముళ్ళ బంధంతో ఏకమవుతున్న ‘భవ్యశ్రీ - వెంకట్’ లను ఆశీర్వదించ కోరుచున్నాము.”',
+      hostsHeading: 'ఆహ్వానించువారు',
+      hostsList: [
+        {
+          role: 'భవదీయులు',
+          names: 'మట్టపర్తి కుమారస్వామి (లేటు), శ్రీమతి సుజాత',
+        },
+        {
+          role: 'ఆగమనాభిలాషులు',
+          names: 'అన్నయ్య : మట్టపర్తి సాయికిరణ్',
+        },
+      ],
+      compliments:
+        'మట్టపర్తి బ్రదర్స్, రెడ్డి బ్రదర్స్, పెద్దనాన్నలు-పెద్దమ్మలు, చిన్నాన్నలు-చిన్నమ్మలు, అత్తయ్యలు-మావయ్యలు, అక్కలు-బావలు, చెల్లెళ్లు-బావలు, అన్నయ్యలు-వదినలు మరియు బంధుమిత్రుల అభినందనలతో',
+      saptapadiTitle: '// సప్తపది //',
+      rituals: [
+        'మొదటి అడుగు: అన్న పానీయాల కోసం',
+        'రెండవ అడుగు: సుఖ సంతోషాల కోసం',
+        'మూడవ అడుగు: వ్రతాల కోసం',
+        'నాలుగవ అడుగు: సంతానం కోసం',
+        'ఐదవ అడుగు: సఖ్యత కోసం',
+        'ఆరవ అడుగు: పాడిపంటల కోసం',
+        'ఏడవ అడుగు: సంపద కోసం',
+      ],
     },
     events: {
       eyebrow: 'రెండు శుభ సందర్భాలు · వేడుకల వివరాలు',
-      heading: 'వివాహ వేడుకలు',
+      heading: 'వివాహ మహోత్సవ వేడుకలు',
       reception: {
-        step: 'వేడుక 01 · సాయంత్రం వేడుక',
-        title: 'రిసెప్షన్',
-        date: 'బుధవారం, 2 డిసెంబర్ 2026',
-        time: 'రాత్రి 7:00 గంటల నుండి',
+        step: 'వేడుక 01 · విందు భోజనం',
+        title: 'విందు',
+        date: 'ది. 2-12-2026 బుధవారం',
+        time: 'రాత్రి 7:00 గం||ల నుండి కళ్యాణవేదిక వద్ద',
         description:
-          'బంధుమిత్రుల సమక్షంలో సంతోషకరమైన సంగీతం, విందు మరియు ఆత్మీయ వేడుకలో మాతో పాలుపంచుకోండి.',
+          'ఎస్.ఎస్. వెన్యూ, కేశవరం రోడ్, రాజవోలు వద్ద జరిగే విందు వేడుకలో బంధుమిత్రులతో కలిసి పాల్గొనాలని కోరుచున్నాము.',
         addCalendar: 'క్యాలెండర్‌లో చేర్చుకోండి',
       },
       muhurtham: {
-        step: 'వేడుక 02 · పవిత్ర వివాహ క్రతువు',
-        title: 'శుభ ముహూర్తం',
-        date: 'గురువారం, 3 డిసెంబర్ 2026',
-        time: 'తెల్లవారుజామున 4:42 IST',
+        step: 'వేడుక 02 · పవిత్ర సుముహూర్తం',
+        title: 'సుముహూర్తం',
+        date: 'ది. 2-12-2026 బుధవారం రాత్రి (తెల్లవారితే గురువారం)',
+        time: 'రాత్రి గం|| 4:42 ని||లకు (ఉత్తరా నక్షత్రయుక్త తులాలగ్నం)',
         description:
-          'వేద మంత్రోచ్ఛారణల మధ్య జరిగే మాంగళ్య ధారణ మరియు తలంబ్రాల వేడుకలో పాల్గొని వధూవరులను ఆశీర్వదించండి.',
+          'స్వస్తిశ్రీ చాంద్రమాన శ్రీ పరాభవ నామ సంవత్సర కార్తీకమాస బహుళ నవమి తత్కాల దశమి నాడు జరిగే శుభ ముహూర్తమున వధూవరులను ఆశీర్వదించండి.',
         addCalendar: 'క్యాలెండర్‌లో చేర్చుకోండి',
       },
     },
     venue: {
-      eyebrow: 'వేదిక & మార్గదర్శకత్వం',
-      heading: 'మీ రాక కోసం ఎదురుచూస్తుంటాము',
-      defaultName: 'మా వేడుక జరిగే వేదిక',
-      defaultAddress:
-        'రిసెప్షన్ మరియు వివాహ ముహూర్తం రెండూ ఇదే వేదిక వద్ద జరుగుతాయి. గూగుల్ మ్యాప్స్ డైరెక్షన్స్ కోసం క్రింది బటన్‌ను నొక్కండి.',
+      eyebrow: 'కళ్యాణ వేదిక & మార్గదర్శకత్వం',
+      heading: 'ఎస్.ఎస్. వెన్యూ, రాజవోలు',
+      defaultName: 'ఎస్.ఎస్. వెన్యూ (S.S. Venue)',
+      defaultAddress: 'కేశవరం రోడ్, రాజవోలు, రాజమహేంద్రవరం రూరల్, తూ||గో|| జిల్లా.',
+      contactLabel: 'ఆహ్వానించువారు: రాజవోలు, రాజమహేంద్రవరం రూరల్, తూ||గో|| జిల్లా.',
       directionsButton: 'గూగుల్ మ్యాప్స్ డైరెక్షన్స్',
-      signoffEyebrow: 'మీ శుభ ఆశీస్సులను కోరుతూ',
-      footerDate: '02 & 03 డిసెంబర్ 2026 · వెంకట్ & భవ్య · ప్రేమతో మీ ఆగమనాన్ని కోరుతూ',
+      signoffEyebrow: 'మట్టపర్తి వారి పెండ్లి పిలుపు · మీ ఆగమనాన్ని కోరుతూ',
+      footerDate: '02 & 03 డిసెంబర్ 2026 · వెంకట్ & భవ్యశ్రీ · ఎస్.ఎస్. వెన్యూ, రాజవోలు',
     },
   },
 } as const;
@@ -241,8 +307,8 @@ function getGoogleCalendarUrl(title: string, startIso: string, durationMinutes: 
     action: 'TEMPLATE',
     text: title,
     dates: `${fmt(startMs)}/${fmt(endMs)}`,
-    details: `${description}\n\nVenue Directions: ${details.mapsUrl}`,
-    location: details.mapsUrl,
+    details: `${description}\n\nVenue: ${details.venueName}, ${details.venueAddress}\nDirections: ${details.mapsUrl}`,
+    location: `${details.venueName}, ${details.venueAddress}`,
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
@@ -273,11 +339,11 @@ function Opening({
       <Art src={artwork.toranam} alt="Traditional mango leaf toranam with jasmine garlands and brass bell" className="opening-toranam" eager />
       <div className="opening-content">
         <div className="telugu-auspicious-row">
-          <span>శ్రీరస్తు</span>
+          <span>|| శ్రీరస్తు ||</span>
           <span className="dot">·</span>
-          <span>శుభమస్తు</span>
+          <span>|| శుభమస్తు ||</span>
           <span className="dot">·</span>
-          <span>అవిఘ్నమస్తు</span>
+          <span>|| అవిఘ్నమస్తు ||</span>
         </div>
         <motion.div
           initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : 0.97 }}
@@ -319,7 +385,7 @@ function Navigation({ lang, onToggleLang }: { lang: Lang; onToggleLang: (next: L
   ];
   return (
     <header className="wedding-header">
-      <a className={`monogram ${isTe ? 'telugu' : ''}`} href="#home" aria-label="Venkat and Bhavya, home">
+      <a className={`monogram ${isTe ? 'telugu' : ''}`} href="#home" aria-label="Venkat and Bhavyasri, home">
         {t.monogram[0]} <span>&</span> {t.monogram[1]}
       </a>
       <nav className={menuOpen ? 'wedding-navigation is-open' : 'wedding-navigation'} aria-label="Wedding navigation">
@@ -369,7 +435,7 @@ function Hero({ lang }: { lang: Lang }) {
           <Art src={artwork.arch} alt="Ornate ivory temple arch framed by jasmine garlands and banana leaves" className="temple-arch" eager />
           <div className="hero-names">
             <p className={`eyebrow ${isTe ? 'telugu eyebrow-te' : ''}`}>{t.hero.eyebrow}</p>
-            <h1 className={isTe ? 'telugu hero-names-te' : ''}>
+            <h1 className={`hero-names-compact ${isTe ? 'telugu hero-names-te' : ''}`}>
               {[t.groom, '&', t.bride].map((name, index) => (
                 <motion.span
                   className={name === '&' ? 'hero-ampersand' : undefined}
@@ -388,11 +454,11 @@ function Hero({ lang }: { lang: Lang }) {
 
         <Reveal className="hero-summary-card">
           <div className="telugu-auspicious-row card-auspicious">
-            <span>శ్రీ గణేశాయ నమః</span>
+            <span>|| శ్రీరస్తు ||</span>
             <span className="dot">·</span>
-            <span>శ్రీరస్తు</span>
+            <span>|| శుభమస్తు ||</span>
             <span className="dot">·</span>
-            <span>శుభమస్తు</span>
+            <span>|| అవిఘ్నమస్తు ||</span>
           </div>
 
           <p className={`hero-message ${isTe ? 'telugu hero-message-te' : ''}`}>{t.hero.message}</p>
@@ -467,31 +533,68 @@ function InvitationAndCouple({ lang }: { lang: Lang }) {
               <p className={`eyebrow ${isTe ? 'telugu eyebrow-te' : ''}`}>{t.invitation.coupleCaption}</p>
               <p className="telugu">కళ్యాణమస్తు</p>
             </div>
+            <blockquote className="telugu-slokam telugu">
+              శ్లో|| జానక్యాః కమలామలాంజలి పుటేయాః పద్మరాగాయితాః
+              <br />
+              న్యస్తా రాఘవ మస్తకేచ విలసత్కుంద ప్రసూనాయితాః
+              <br />
+              స్రస్తాశ్యామల కాయకాంతి కలితాః యా ఇంద్రనీలాయితాః
+              <br />
+              ముక్తాస్తాశ్శుభదా భవంతు భవతాం శ్రీరామ వైవాహికాః
+            </blockquote>
           </div>
         </Reveal>
 
         <Reveal className="invitation-copy">
           <p className={`eyebrow ${isTe ? 'telugu eyebrow-te' : ''}`}>{t.invitation.eyebrow}</p>
           <h2 className={isTe ? 'telugu heading-te' : ''}>{t.invitation.heading}</h2>
+          <p className={isTe ? 'telugu body-te' : ''}>{t.invitation.subHeading}</p>
           <Divider />
-          <blockquote className="telugu-mantra telugu">
-            “మాంగల్యం తంతునానేన మమ జీవన హేతునా
-            <br />
-            కంఠే బధ్నామి సుభగే త్వం జీవ శరదాం శతమ్”
-          </blockquote>
-          <p className={isTe ? 'telugu body-te' : ''}>{t.invitation.intro}</p>
-          <h3 className={isTe ? 'telugu names-inline-te' : ''}>
-            {t.groom} <i>&</i> {t.bride}
-          </h3>
-          <p className={isTe ? 'telugu body-te' : ''}>{t.invitation.outro}</p>
 
-          <div className="ritual-highlights">
-            {t.invitation.rituals.map((ritual) => (
-              <div className={`ritual-pill ${isTe ? 'telugu' : ''}`} key={ritual}>
-                <Sparkles size={13} />
-                <span>{ritual}</span>
-              </div>
-            ))}
+          <div className="couple-formal-names">
+            <div className="person-block">
+              <span className={`person-role ${isTe ? 'telugu' : ''}`}>{t.invitation.BrideLabel}</span>
+              <h3 className={isTe ? 'telugu names-inline-te' : ''}>{t.brideFull}</h3>
+              <p className={`parent-detail ${isTe ? 'telugu' : ''}`}>{t.brideParents}</p>
+            </div>
+
+            <p className={`with-conjunction ${isTe ? 'telugu' : ''}`}>&</p>
+
+            <div className="person-block">
+              <span className={`person-role ${isTe ? 'telugu' : ''}`}>{t.invitation.GroomLabel}</span>
+              <h3 className={isTe ? 'telugu names-inline-te' : ''}>{t.groomFull}</h3>
+              <span className="groom-qual">{t.groomQualification}</span>
+              <p className={`parent-detail ${isTe ? 'telugu' : ''}`}>{t.groomParents}</p>
+            </div>
+          </div>
+
+          <blockquote className={`telugu-mantra ${isTe ? 'telugu' : ''}`}>
+            <strong>{t.invitation.abhilashaTitle}</strong> {t.invitation.abhilashaText}
+          </blockquote>
+
+          <div className="hosts-block">
+            <p className={`eyebrow ${isTe ? 'telugu eyebrow-te' : ''}`}>{t.invitation.hostsHeading}</p>
+            <div className="hosts-grid">
+              {t.invitation.hostsList.map((host) => (
+                <div className="host-pair" key={host.role}>
+                  <small className={isTe ? 'telugu' : ''}>{host.role}</small>
+                  <strong className={isTe ? 'telugu' : ''}>{host.names}</strong>
+                </div>
+              ))}
+            </div>
+            <p className={`compliments-line ${isTe ? 'telugu' : ''}`}>{t.invitation.compliments}</p>
+          </div>
+
+          <div className="ritual-section">
+            <p className={`eyebrow saptapadi-heading ${isTe ? 'telugu eyebrow-te' : ''}`}>{t.invitation.saptapadiTitle}</p>
+            <div className="ritual-highlights">
+              {t.invitation.rituals.map((ritual) => (
+                <div className={`ritual-pill ${isTe ? 'telugu' : ''}`} key={ritual}>
+                  <Sparkles size={12} />
+                  <span>{ritual}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </Reveal>
       </div>
@@ -504,16 +607,16 @@ function WeddingEvents({ lang }: { lang: Lang }) {
   const isTe = lang === 'te';
 
   const receptionCalUrl = getGoogleCalendarUrl(
-    `Venkat & Bhavya — Wedding Reception`,
+    `Bhavyasri & Venkat — Wedding Vindu (Dinner)`,
     details.reception.startsAt,
     180,
-    `Join us for the Wedding Reception of Venkat & Bhavya.`
+    `Wedding Vindu (Reception & Dinner) of Chi.La.Sow. Mattaparthi Bhavyasri & Chi. Kadali Venkateswara Rao (Venkat) at S.S. Venue, Kesavaram Road, Rajavolu.`
   );
   const weddingCalUrl = getGoogleCalendarUrl(
-    `Venkat & Bhavya — Wedding Muhurtham`,
+    `Bhavyasri & Venkat — Wedding Sumuhurtham`,
     details.wedding.startsAt,
     120,
-    `Sacred Wedding Muhurtham of Venkat & Bhavya at 4:42 AM IST.`
+    `Sacred Wedding Sumuhurtham (Uttara Nakshatra Yukta Tula Lagnam) of Chi.La.Sow. Mattaparthi Bhavyasri & Chi. Kadali Venkateswara Rao (Venkat) at 4:42 AM IST at S.S. Venue, Kesavaram Road, Rajavolu.`
   );
 
   return (
@@ -534,7 +637,7 @@ function WeddingEvents({ lang }: { lang: Lang }) {
           </div>
           <div className="event-body">
             <h3 className={isTe ? 'telugu heading-te' : ''}>{t.events.reception.title}</h3>
-            {!isTe && <p className="telugu event-telugu">రిసెప్షన్ వేడుక</p>}
+            {!isTe && <p className="telugu event-telugu">విందు · కళ్యాణవేదిక వద్ద</p>}
             <div className="event-facts">
               <div className={`event-fact ${isTe ? 'telugu' : ''}`}>
                 <CalendarDays size={15} />
@@ -562,7 +665,7 @@ function WeddingEvents({ lang }: { lang: Lang }) {
           </div>
           <div className="event-body">
             <h3 className={isTe ? 'telugu heading-te' : ''}>{t.events.muhurtham.title}</h3>
-            {!isTe && <p className="telugu event-telugu">శుభ ముహూర్తం</p>}
+            {!isTe && <p className="telugu event-telugu">సుముహూర్తం · తులాలగ్నమునందు</p>}
             <div className="event-facts">
               <div className={`event-fact ${isTe ? 'telugu' : ''}`}>
                 <CalendarDays size={15} />
@@ -601,12 +704,21 @@ function VenueAndClosing({ lang }: { lang: Lang }) {
           </div>
           <p className={`eyebrow ${isTe ? 'telugu eyebrow-te' : ''}`}>{t.venue.eyebrow}</p>
           <h2 className={isTe ? 'telugu heading-te' : ''}>{t.venue.heading}</h2>
-          <p className={`venue-name ${isTe ? 'telugu' : ''}`}>{details.venueName || t.venue.defaultName}</p>
-          {details.venueAddress ? (
-            <p className="venue-address">{details.venueAddress}</p>
-          ) : (
-            <p className={`venue-address ${isTe ? 'telugu body-te' : ''}`}>{t.venue.defaultAddress}</p>
-          )}
+          <p className={`venue-name ${isTe ? 'telugu' : ''}`}>{t.venue.defaultName}</p>
+          <p className={`venue-address ${isTe ? 'telugu body-te' : ''}`}>{t.venue.defaultAddress}</p>
+
+          <div className="venue-contacts">
+            <p className={`contact-residence ${isTe ? 'telugu' : ''}`}>{t.venue.contactLabel}</p>
+            <div className="phone-links">
+              {details.invitedBy.contacts.map((phone) => (
+                <a href={`tel:+91${phone}`} className="phone-pill" key={phone}>
+                  <Phone size={13} />
+                  <span>{phone}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
           <div className="venue-actions">
             <Button variant="invitation" asChild className={isTe ? 'telugu' : ''}>
               <a href={details.mapsUrl} target="_blank" rel="noopener noreferrer">
@@ -623,11 +735,11 @@ function VenueAndClosing({ lang }: { lang: Lang }) {
             {t.groom} <i>&</i> {t.bride}
           </h3>
           <div className="telugu-auspicious-row closing-row">
-            <span>శ్రీరస్తు</span>
+            <span>|| శ్రీరస్తు ||</span>
             <span className="dot">·</span>
-            <span>శుభమస్తు</span>
+            <span>|| శుభమస్తు ||</span>
             <span className="dot">·</span>
-            <span>కళ్యాణమస్తు</span>
+            <span>|| అవిఘ్నమస్తు ||</span>
           </div>
         </Reveal>
       </div>

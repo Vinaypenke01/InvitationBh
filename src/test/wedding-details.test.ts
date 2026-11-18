@@ -19,9 +19,11 @@ describe('Confirmed wedding details', () => {
   it('marks the exact Muhurtham as complete', () => {
     expect(getCountdown(Date.parse('2026-12-03T04:42:00+05:30')).complete).toBe(true);
   });
-  it('preserves the confirmed directions link without inventing venue details', () => {
+  it('preserves the confirmed directions link and S.S. Venue details from the wedding card', () => {
     expect(weddingDetails.mapsUrl).toBe('https://maps.app.goo.gl/61CpE1BoD5ughb18A');
-    expect(weddingDetails.venueName).toBe('');
-    expect(weddingDetails.venueAddress).toBe('');
+    expect(weddingDetails.venueName).toBe('S.S. Venue');
+    expect(weddingDetails.venueAddress).toBe('Kesavaram Road, Rajavolu, Rajamahendravaram Rural, East Godavari Dist.');
+    expect(weddingDetails.groomFull).toBe('Chi. Kadali Venkateswara Rao (Venkat)');
+    expect(weddingDetails.brideFull).toBe('Chi.La.Sow. Mattaparthi Bhavyasri');
   });
 });
