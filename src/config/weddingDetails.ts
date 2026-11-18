@@ -5,9 +5,10 @@ export const weddingDetails = {
   groomFull: "Chi. Kadali Venkateswara Rao (Venkat)",
   groomQualification: "B.P.Ed., M.Sc. (Yoga)",
   groomParents:
-    "Youngest S/o. Late Sri Kadali Apparao & Smt. Nagamani, Residents of Pasarlapudi (Kottumeraka), Mamidikuduru Mandal, Dr. B.R. Ambedkar Konaseema Dist.",
+    "Youngest S/o. Late Sri Kadali Apparao & Smt. Nagaveni, Residents of Pasarlapudi (Kottumeraka), Mamidikuduru Mandal, Dr. B.R. Ambedkar Konaseema Dist.",
   bride: "Bhavyasri",
   brideFull: "Chi.La.Sow. Mattaparthi Bhavyasri",
+  brideQualification: "B.S.C(Computers)",
   brideParents: "Only D/o. Late Sri Mattaparthi Kumaraswamy & Smt. Sujatha",
   invitedBy: {
     elderHosts: "Sri Mattaparthi Kalikumar & Smt. Shakunthala",

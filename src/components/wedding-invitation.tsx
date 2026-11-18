@@ -15,6 +15,7 @@ const translations = {
     groomParents: details.groomParents,
     bride: details.bride,
     brideFull: details.brideFull,
+    brideQualification: details.brideQualification,
     brideParents: details.brideParents,
     monogram: ['V', 'B'] as const,
     nav: {
@@ -130,6 +131,7 @@ const translations = {
       '(డా|| బి.ఆర్ అంబేద్కర్ కోనసీమ జిల్లా, మామిడికుదురు మండలం, పాశర్లపూడి (కొట్టుమెరక) వాస్తవ్యులు శ్రీ కడలి అప్పారావు (లేటు), శ్రీమతి నాగమణి దంపతుల కనిష్ఠ కుమారుడు)',
     bride: 'భవ్యశ్రీ',
     brideFull: 'చి||ల||సౌ|| మట్టపర్తి భవ్యశ్రీ',
+    brideQualification: "B.S.C",
     brideParents: '(నా సోదరుడు మట్టపర్తి కుమారస్వామి (లేటు), శ్రీమతి సుజాత దంపతుల ఏకైక కుమార్తె)',
     monogram: ['వె', 'భ'] as const,
     nav: {
@@ -253,7 +255,7 @@ function Reveal({ children, className = '' }: { children: ReactNode; className?:
   return (
     <motion.div
       className={className}
-      initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 12 }}
+      initial={false}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
       transition={{ duration: reduced ? 0 : 0.65 }}
@@ -330,7 +332,7 @@ function Opening({
     <motion.section
       className={`opening ${isTe ? 'lang-te' : ''}`}
       aria-label="Open the wedding invitation"
-      initial={{ opacity: 0 }}
+      initial={false}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: reduced ? 0 : 0.75 }}
@@ -346,7 +348,7 @@ function Opening({
           <span>|| అవిఘ్నమస్తు ||</span>
         </div>
         <motion.div
-          initial={{ opacity: reduced ? 1 : 0, scale: reduced ? 1 : 0.97 }}
+          initial={false}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: reduced ? 0 : 0.85 }}
         >
@@ -555,6 +557,7 @@ function InvitationAndCouple({ lang }: { lang: Lang }) {
             <div className="person-block">
               <span className={`person-role ${isTe ? 'telugu' : ''}`}>{t.invitation.BrideLabel}</span>
               <h3 className={isTe ? 'telugu names-inline-te' : ''}>{t.brideFull}</h3>
+              <span className="groom-qual">{t.brideQualification}</span>
               <p className={`parent-detail ${isTe ? 'telugu' : ''}`}>{t.brideParents}</p>
             </div>
 
